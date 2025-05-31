@@ -1,0 +1,59 @@
+import { type NextRequest, NextResponse } from "next/server"
+import { createServerClient } from "@/lib/supabase/server"
+import { createApiResponse, handleApiError } from "@/lib/api-response"
+
+export async function GET(request: NextRequest) {
+  try {
+    const supabase = await createServerClient()
+    const { searchParams } = new URL(request.url)
+    const featured = searchParams.get("featured")
+    const limit = searchParams.get("limit")
+
+    let query = supabase.from("project").select("*").order("created_at", { ascending: false })
+
+    if (featured === "true") {
+      query = query.eq("featured", true)
+    }
+
+    if (limit) {
+      query = query.limit(Number.parseInt(limit))
+    }
+
+    const { data, error } = await query
+
+    if (error) {
+      return NextResponse.json(createApiResponse(false, null, error.message), { status: 400 })
+    }
+
+    return NextResponse.json(createApiResponse(true, data))
+  } catch (error) {
+    return NextResponse.json(handleApiError(error), { status: 500 })
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const supabase = await createServerClient()
+
+    // Check authentication
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser()
+    if (authError || !user) {
+      return NextResponse.json(createApiResponse(false, null, "Unauthorized"), { status: 401 })
+    }
+
+    const projectData = await request.json()
+
+    const { data, error } = await supabase.from("projects").insert([projectData]).select().single()
+
+    if (error) {
+      return NextResponse.json(createApiResponse(false, null, error.message), { status: 400 })
+    }
+
+    return NextResponse.json(createApiResponse(true, data, undefined, "Project created successfully"), { status: 201 })
+  } catch (error) {
+    return NextResponse.json(handleApiError(error), { status: 500 })
+  }
+}
