@@ -46,6 +46,7 @@ export default function SkillsPage() {
     name: "",
     category: "",
     proficiency_level: 1,
+    icon_url: "",
   })
 
   useEffect(() => {
@@ -73,6 +74,7 @@ export default function SkillsPage() {
       name: "",
       category: "",
       proficiency_level: 1,
+      icon_url: "",
     })
     setEditingId(null)
     setShowForm(false)
@@ -83,6 +85,7 @@ export default function SkillsPage() {
       name: skill.name,
       category: skill.category || "",
       proficiency_level: skill.proficiency_level || 1,
+      icon_url: skill.icon_url || "",
     })
     setEditingId(skill.id)
     setShowForm(true)
@@ -255,6 +258,16 @@ export default function SkillsPage() {
                       ))}
                     </SelectContent>
                   </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="icon">Icon URL</Label>
+                  <Input
+                    id="icon"
+                    placeholder="e.g www.nodejs.org/nodejs.ico"
+                    value={formData.icon_url}
+                    onChange={(e) => setFormData({ ...formData, icon_url: e.target.value })}
+                    required
+                  />
                 </div>
               </div>
 

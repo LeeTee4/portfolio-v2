@@ -31,6 +31,7 @@ export default function EducationPage() {
     description: "",
     grade: "",
     is_current: false,
+    image_url: "", // Added for education cover page URL
   })
 
   useEffect(() => {
@@ -63,6 +64,7 @@ export default function EducationPage() {
       description: "",
       grade: "",
       is_current: false,
+      image_url: "", // Reset education cover page URL
     })
     setEditingId(null)
     setShowForm(false)
@@ -78,6 +80,7 @@ export default function EducationPage() {
       description: edu.description || "",
       grade: edu.grade || "",
       is_current: edu.is_current,
+      image_url: edu.image_url || "", // Set education cover page URL
     })
     setEditingId(edu.id)
     setShowForm(true)
@@ -214,12 +217,12 @@ export default function EducationPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="grade">Grade/GPA</Label>
-                  <Input
-                    id="grade"
-                    placeholder="3.8 GPA"
-                    value={formData.grade}
-                    onChange={(e) => setFormData({ ...formData, grade: e.target.value })}
+                  <Label htmlFor="education_cover">Education Cover Page URL</Label>
+                <Input
+                  id="education_cover"
+                  placeholder="Enter the URL for the education cover page"
+                  value={formData.image_url}
+                  onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
                   />
                 </div>
 
@@ -244,22 +247,6 @@ export default function EducationPage() {
                   />
                 </div>
               </div>
-
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="is_current"
-                  checked={formData.is_current}
-                  onCheckedChange={(checked) =>
-                    setFormData({
-                      ...formData,
-                      is_current: checked as boolean,
-                      end_date: checked ? "" : formData.end_date,
-                    })
-                  }
-                />
-                <Label htmlFor="is_current">Currently studying here</Label>
-              </div>
-
               <div className="space-y-2">
                 <Label htmlFor="description">Description</Label>
                 <Textarea

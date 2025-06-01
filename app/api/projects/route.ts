@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
 
     const projectData = await request.json()
 
-    const { data, error } = await supabase.from("projects").insert([projectData]).select().single()
+    const { data, error } = await supabase.from("project").insert([projectData]).select().single()
 
     if (error) {
       return NextResponse.json(createApiResponse(false, null, error.message), { status: 400 })

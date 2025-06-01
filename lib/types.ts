@@ -34,6 +34,7 @@ export interface Education {
   is_current: boolean
   created_at: string
   updated_at: string
+  image_url?: string
 }
 
 export interface Project {
@@ -73,4 +74,5 @@ export interface Skill {
   category?: string
   proficiency_level?: number
   created_at: string
+  icon_url: string
 }

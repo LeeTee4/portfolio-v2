@@ -31,6 +31,16 @@ export default function CertificatesPage() {
     description: "",
     image_url: "",
   })
+    const [noExpiry, setNoExpiry] = useState(false);
+
+  const handleNoExpiryChange = (e: { target: { checked: any } }) => {
+    const checked = e.target.checked;
+    setNoExpiry(checked);
+    setFormData({
+      ...formData,
+      expiry_date: checked ? "no_expiry" : "",
+    });
+  };
 
   useEffect(() => {
     fetchCertificates()
@@ -142,8 +152,13 @@ export default function CertificatesPage() {
   }
 
   const isExpired = (expiryDate: string) => {
-    if (!expiryDate) return false
-    return new Date(expiryDate) < new Date()
+    if (expiryDate === "no_expiry") {
+      return false
+    }
+    else if (new Date(expiryDate) < new Date()) {
+      return false
+    }
+    return true
   }
 
   if (loading) {
@@ -218,14 +233,27 @@ export default function CertificatesPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="expiry_date">Expiry Date</Label>
-                  <Input
-                    id="expiry_date"
-                    type="date"
-                    value={formData.expiry_date}
-                    onChange={(e) => setFormData({ ...formData, expiry_date: e.target.value })}
-                  />
-                </div>
+        <Label htmlFor="expiry_date">Expiry Date</Label>
+        <div className="flex items-center gap-2">
+          <Input
+            id="expiry_date"
+            type="date"
+            value={noExpiry ? "" : formData.expiry_date}
+            onChange={(e) =>
+              setFormData({ ...formData, expiry_date: e.target.value })
+            }
+            disabled={noExpiry}
+          />
+          <label className="flex items-center space-x-1 text-sm">
+            <input
+              type="checkbox"
+              checked={noExpiry}
+              onChange={handleNoExpiryChange}
+            />
+            <span>No Expiry</span>
+          </label>
+        </div>
+      </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="credential_id">Credential ID</Label>
@@ -337,7 +365,7 @@ export default function CertificatesPage() {
                   {cert.expiry_date && (
                     <div className="flex items-center text-sm text-muted-foreground">
                       <Calendar className="mr-1 h-3 w-3" />
-                      Expires: {new Date(cert.expiry_date).toLocaleDateString()}
+                      Expires: {cert.expiry_date === "no_expiry" ? "No Expiry Date" : new Date(cert.expiry_date).toLocaleDateString()}
                     </div>
                   )}
 
