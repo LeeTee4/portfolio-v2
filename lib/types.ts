@@ -17,7 +17,7 @@ export interface ContactDetails {
   website?: string
   linkedin_url?: string
   github_url?: string
-  twitter_url?: string
+  facebook_url?: string
   created_at: string
   updated_at: string
 }

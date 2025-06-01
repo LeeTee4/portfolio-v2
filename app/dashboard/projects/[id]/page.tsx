@@ -551,6 +551,16 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
                       onChange={(e) => handleInputChange("github_url", e.target.value)}
                     />
                   </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="image_url">Project Image URL</Label>
+                    <Input
+                      id="image_url"
+                      type="url"
+                      placeholder="https://example.com/image.jpg"
+                      value={formData.image_url}
+                      onChange={(e) => handleInputChange("image_url", e.target.value)}
+                    />
+                  </div>
                 </div>
               </CardContent>
             </Card>
