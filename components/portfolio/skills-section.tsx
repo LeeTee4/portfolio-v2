@@ -110,15 +110,15 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
                               <span className="font-medium text-sm">{skill.name}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              {getProficiencyBadge(skill.proficiency_level || 0)}
-                              <span className="text-xs text-gray-500">{skill.proficiency_level || 0}/10</span>
+                              {getProficiencyBadge(skill.proficiency_level ? skill.proficiency_level * 2 : 0)}
+                              <span className="text-xs text-gray-500">{skill.proficiency_level ? skill.proficiency_level * 2 : 0}/10</span>
                             </div>
                           </div>
                           <div className="relative">
                             <Progress
-                              value={(skill.proficiency_level || 0) * 10}
+                              value={(skill.proficiency_level ? skill.proficiency_level * 2 : 0) * 10}
                               className="h-2"
-                              indicatorClassName={getProficiencyColor(skill.proficiency_level || 0)}
+                              indicatorClassName={getProficiencyColor(skill.proficiency_level ? skill.proficiency_level * 2 : 0)}
                             />
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50 animate-pulse" />
                           </div>
