@@ -13,7 +13,7 @@ interface ProjectsSectionProps {
   showViewAll?: boolean
 }
 
-export function ProjectsSection({ projects, showViewAll = false }: ProjectsSectionProps) {
+export function ProjectsSection({ projects}: ProjectsSectionProps) {
   if (!projects || projects.length === 0) {
     return null
   }
@@ -21,29 +21,16 @@ export function ProjectsSection({ projects, showViewAll = false }: ProjectsSecti
   return (
     <section id="projects" className="py-10 px-4 bg-gradient-to-b from-white to-primary/10">
       <div className="container mx-auto max-w-6xl">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-4">
+        <div className="flex flex-col items-center mb-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold text-center md:text-left">Projects</h2>
+            <h2 className="text-3xl font-bold text-center md:text-center">Projects</h2>
             <p className="text-gray-500 mt-2">Some of my recent work</p>
           </motion.div>
-
-          {showViewAll && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <Button asChild variant="outline">
-                <Link href="/projects">View All Projects</Link>
-              </Button>
-            </motion.div>
-          )}
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -79,9 +66,16 @@ function ProjectCard({ project }: { project: Project }) {
       <CardHeader>
         <div className="flex justify-between items-start">
           <CardTitle className="text-xl">{project.title}</CardTitle>
-          <Badge variant="outline" className="bg-primary/10 text-primary-dark">
-            {project.status}
-          </Badge>
+          {(project.status === "completed") ? (
+            <Badge variant="outline" className="text-xs bg-green-100 text-green-800">
+              Completed
+              </Badge>
+              ) : (
+                <Badge variant="outline" className="text-xs bg-yellow-100 text-yellow-800">
+                  In Progress
+                  </Badge>
+                  )}
+        
         </div>
         <CardDescription className="line-clamp-2">{project.description}</CardDescription>
       </CardHeader>
@@ -100,13 +94,21 @@ function ProjectCard({ project }: { project: Project }) {
           </div>
         )}
         <div className="flex gap-2 mt-auto">
-          {project.project_url && (
+          {project.project_url ? (
             <Button size="sm" asChild className="flex-1">
               <a href={project.project_url} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="mr-1 h-3 w-3" />
                 Live Demo
               </a>
             </Button>
+          ) : (
+            <Button size="sm" asChild className="flex-1">
+              <a href="#projects" onClick={(e) => e.preventDefault()}>
+                <ExternalLink className="mr-1 h-3 w-3" />
+                No Demo
+              </a>
+            </Button>
+                
           )}
         </div>
       </CardContent>

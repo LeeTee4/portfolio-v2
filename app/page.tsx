@@ -26,7 +26,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchPortfolioData = async () => {
       try {
-        const [personalResponse, contactResponse, projectsResponse, educationResponse, certificatesResponse] =
+        const [personalResponse, contactResponse, projectsResponse, educationResponse, certificatesResponse, skillsResponse] =
           await Promise.all([
             fetch("/api/personal-info"),
             fetch("/api/contact-details"),
@@ -36,12 +36,13 @@ export default function HomePage() {
             fetch("/api/skills"),
           ])
 
-        const [personalResult, contactResult, projectsResult, educationResult, certificatesResult] = await Promise.all([
+        const [personalResult, contactResult, projectsResult, educationResult, certificatesResult, skillsResult] = await Promise.all([
           personalResponse.json(),
           contactResponse.json(),
           projectsResponse.json(),
           educationResponse.json(),
           certificatesResponse.json(),
+          skillsResponse.json(),
         ])
 
         if (personalResult.success) setPersonalInfo(personalResult.data)
@@ -49,6 +50,7 @@ export default function HomePage() {
         if (projectsResult.success) setProjects(projectsResult.data || [])
         if (educationResult.success) setEducation(educationResult.data || [])
         if (certificatesResult.success) setCertificates(certificatesResult.data || [])
+        if (skillsResult.success) setSkills(skillsResult.data || [])
       } catch (error) {
         console.error("Error fetching portfolio data:", error)
       } finally {

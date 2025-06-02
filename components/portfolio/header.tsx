@@ -45,6 +45,9 @@ export function Header({ personalInfo }: HeaderProps) {
 
         {/* Desktop navigation */}
         <nav className="hidden md:flex items-center gap-6">
+          <Link href="#skills" className="text-sm hover:text-primary transition-colors">
+            Skills
+          </Link>
           <Link href="#projects" className="text-sm hover:text-primary transition-colors">
             Projects
           </Link>

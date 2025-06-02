@@ -16,7 +16,7 @@ export function CertificatesSection({ certificates }: CertificatesSectionProps) 
   }
 
   return (
-    <section id="certificates" className="py-20 px-4 bg-gradient-to-b from-primary/10 to-white">
+    <section id="certificates" className="py-10 px-4 bg-gradient-to-b from-primary/10 to-white">
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -50,8 +50,13 @@ export function CertificatesSection({ certificates }: CertificatesSectionProps) 
 
 function CertificateCard({ certificate }: { certificate: Certificate }) {
   const isExpired = (expiryDate?: string) => {
-    if (!expiryDate) return false
-    return new Date(expiryDate) < new Date()
+    if (expiryDate === "no_expiry") {
+      return false
+    }
+    else if (expiryDate && new Date(expiryDate) < new Date()) {
+      return false
+    }
+    return true
   }
 
   return (
@@ -83,8 +88,10 @@ function CertificateCard({ certificate }: { certificate: Certificate }) {
                 isExpired(certificate.expiry_date) ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"
               }`}
             >
-              {isExpired(certificate.expiry_date) ? "Expired" : "Valid"} until{" "}
-              {new Date(certificate.expiry_date).toLocaleDateString()}
+              {isExpired(certificate.expiry_date) ? "Expired" : "Valid"} until:{" "}
+              {certificate.expiry_date === "no_expiry"
+                ? "No Expiry"
+                : new Date(certificate.expiry_date).toLocaleDateString()}
             </div>
           )}
         </div>
@@ -93,7 +100,7 @@ function CertificateCard({ certificate }: { certificate: Certificate }) {
           <Button size="sm" variant="outline" asChild className="mt-auto">
             <a href={certificate.credential_url} target="_blank" rel="noopener noreferrer">
               <ExternalLink className="mr-1 h-3 w-3" />
-              View Certificate
+              Verify Certificate
             </a>
           </Button>
         )}

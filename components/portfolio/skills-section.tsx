@@ -47,7 +47,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
   }
 
   return (
-    <section id="skills" className="py-20 px-4 bg-gradient-to-b from-white to-primary/5">
+    <section id="skills" className="py-10 px-4 bg-gradient-to-b from-white to-primary/5">
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
