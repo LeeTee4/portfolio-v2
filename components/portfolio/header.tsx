@@ -66,6 +66,13 @@ export function Header({ personalInfo }: HeaderProps) {
         {isMenuOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-md p-4 flex flex-col gap-4">
             <Link
+              href="#skills"
+              className="text-sm hover:text-primary transition-colors p-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Skills
+            </Link>
+            <Link
               href="#projects"
               className="text-sm hover:text-primary transition-colors p-2"
               onClick={() => setIsMenuOpen(false)}
@@ -93,9 +100,6 @@ export function Header({ personalInfo }: HeaderProps) {
             >
               Contact
             </Link>
-            <Button asChild variant="outline" size="sm" className="w-full">
-              <Link href="/login">Dashboard</Link>
-            </Button>
           </div>
         )}
       </div>

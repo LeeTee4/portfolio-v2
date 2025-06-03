@@ -5,8 +5,12 @@ export const metadata: Metadata = {
   title: 'Sibanda | Portfolio',
   description: 'Sibanda Leeroy - Portfolio',
   icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: [
+      {
+        url: '/favicon.ico',
+        type: 'image/x-icon',
+      },
+    ]
   }
 }
 

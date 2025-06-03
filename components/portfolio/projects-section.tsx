@@ -77,7 +77,7 @@ function ProjectCard({ project }: { project: Project }) {
                   )}
         
         </div>
-        <CardDescription className="line-clamp-2">{project.description}</CardDescription>
+        <CardDescription>{project.description}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4 flex-grow">
         {project.technologies && project.technologies.length > 0 && (
