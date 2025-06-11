@@ -22,6 +22,7 @@ const skillCategories = [
   { value: "mobile", label: "Mobile" },
   { value: "design", label: "Design" },
   { value: "tools", label: "Tools" },
+  { value: "softskills", label: "Soft Skills" },
   { value: "other", label: "Other" },
 ]
 
@@ -266,7 +267,7 @@ export default function SkillsPage() {
                     placeholder="e.g www.nodejs.org/nodejs.ico"
                     value={formData.icon_url}
                     onChange={(e) => setFormData({ ...formData, icon_url: e.target.value })}
-                    required
+                    
                   />
                 </div>
               </div>

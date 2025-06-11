@@ -16,16 +16,19 @@ export async function GET() {
     }
 
     // Get counts for each section
-    const [{ count: projectsCount }, { count: educationCount }, { count: certificatesCount }] = await Promise.all([
+    const [{ count: projectsCount }, { count: educationCount }, { count: certificatesCount }, { count: skillsCount }] = await Promise.all([
       supabase.from("project").select("*", { count: "exact", head: true }),
       supabase.from("education").select("*", { count: "exact", head: true }),
       supabase.from("certificate").select("*", { count: "exact", head: true }),
+      supabase.from("skill").select("*", { count: "exact", head: true }),
     ])
 
     const stats = {
       projects: projectsCount || 0,
       education: educationCount || 0,
       certificates: certificatesCount || 0,
+      skills: skillsCount || 0,
+
     }
 
     return NextResponse.json(createApiResponse(true, stats))

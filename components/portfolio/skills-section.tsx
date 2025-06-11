@@ -41,6 +41,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
       mobile: { name: "Mobile Development", icon: Smartphone },
       design: { name: "Design & UI/UX", icon: Palette },
       tools: { name: "Tools & Utilities", icon: Wrench },
+      softskills: { name: "Soft Skills", icon: Star },
       other: { name: "Other Skills", icon: Star },
     }
     return categoryMap[category.toLowerCase()] || { name: category, icon: Star }
@@ -122,10 +123,6 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
                             />
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50 animate-pulse" />
                           </div>
-                          <div className="flex justify-between text-xs text-gray-400">
-                            <span>{getProficiencyLabel(skill.proficiency_level || 0)}</span>
-                            <span>{getExperienceLevel(skill.proficiency_level || 0)}</span>
-                          </div>
                         </motion.div>
                       ))}
                     </div>
@@ -135,64 +132,9 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
             )
           })}
         </div>
-
-        {/* Skills Summary */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-12"
-        >
-          <Card className="border-primary/20">
-            <CardContent className="p-6">
-              <h3 className="text-xl font-semibold text-primary-dark mb-4 text-center">Skills Overview</h3>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                {Object.entries(skillsByCategory).map(([category, categorySkills]) => {
-                  const avgProficiency =
-                    categorySkills.reduce((sum, skill) => sum + (skill.proficiency_level || 0), 0) /
-                    categorySkills.length
-                  const categoryInfo = getCategoryInfo(category)
-
-                  return (
-                    <div key={category} className="text-center space-y-2">
-                      <div className="flex items-center justify-center gap-2">
-                        <categoryInfo.icon className="h-4 w-4 text-primary-dark" />
-                        <span className="font-medium text-sm">{categoryInfo.name}</span>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="flex justify-between text-xs text-gray-500">
-                          <span>{categorySkills.length} skills</span>
-                          <span>{avgProficiency.toFixed(1)}/10 avg</span>
-                        </div>
-                        <Progress value={avgProficiency * 10} className="h-1" />
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
       </div>
     </section>
   )
-}
-
-function getProficiencyLabel(level: number): string {
-  if (level <= 2) return "Beginner"
-  if (level <= 4) return "Basic"
-  if (level <= 6) return "Intermediate"
-  if (level <= 8) return "Advanced"
-  return "Expert"
-}
-
-function getExperienceLevel(level: number): string {
-  if (level <= 2) return "Learning"
-  if (level <= 4) return "Practicing"
-  if (level <= 6) return "Competent"
-  if (level <= 8) return "Proficient"
-  return "Mastery"
 }
 
 function getProficiencyColor(level: number): string {
