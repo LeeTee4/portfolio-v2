@@ -1,6 +1,6 @@
 "use client"
 
-import { Home, User, GraduationCap, FolderOpen, Award, Phone, Code, LogOut } from "lucide-react"
+import { Home, User, GraduationCap, FolderOpen, Award, Phone, LogOut, Code, BarChart3 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
@@ -23,6 +23,11 @@ const menuItems = [
     title: "Overview",
     url: "/dashboard",
     icon: Home,
+  },
+  {
+    title: "Analytics",
+    url: "/dashboard/analytics",
+    icon: BarChart3,
   },
   {
     title: "Personal Info",
@@ -106,7 +111,7 @@ export function DashboardSidebar() {
       </SidebarContent>
       <SidebarFooter>
         <div className="p-4">
-          <Button onClick={handleLogout} variant="outline" className="w-full">
+          <Button onClick={handleLogout} variant="outline" className="w-full bg-transparent">
             <LogOut className="mr-2 h-4 w-4" />
             Logout
           </Button>
