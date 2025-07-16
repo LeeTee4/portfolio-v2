@@ -102,13 +102,24 @@ function ProjectCard({ project }: { project: Project }) {
               </a>
             </Button>
           ) : (
-            <Button size="sm" asChild className="flex-1">
-              <a href="#projects" onClick={(e) => e.preventDefault()}>
-                <ExternalLink className="mr-1 h-3 w-3" />
-                No Demo
+            <Button size="sm" className="flex-1" disabled>
+              <ExternalLink className="mr-1 h-3 w-3" />
+              Live Demo
+            </Button>
+          )}
+          
+          {project.github_url ? (
+            <Button size="sm" asChild className="flex-1" variant="outline">
+              <a href={project.github_url} target="_blank" rel="noopener noreferrer">
+                <Github className="mr-1 h-3 w-3" />
+                Code
               </a>
             </Button>
-                
+          ) : (
+            <Button size="sm" className="flex-1" variant="outline" disabled>
+              <Github className="mr-1 h-3 w-3" />
+              Code
+            </Button>
           )}
         </div>
       </CardContent>
